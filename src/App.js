@@ -19,33 +19,41 @@ const TestMap = () => {
       }),
     });
   };
-  useEffect(() => {
-    new Map({
-      //target is the ref to `map`
-      target: "map",
-      layers: [
-        new TileLayer({
-          source: new XYZSource({
-            url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          }),
+
+  const map = new Map({
+    layers: [
+      new TileLayer({
+        source: new XYZSource({
+          url: "https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         }),
-        new VectorImage({
-          source: new Vector({
-            format: new GeoJSON({ dataProjection: "EPSG:4326" }),
-            url: url,
-          }),
-          style: strokStyle,
-          visible: true,
-        }),
-      ],
-      view: new View({
-        rotation: 0.18,
-        projection: "EPSG:4326",
-        center: [32.56635, 15.56647],
-        zoom: 17,
       }),
+      new VectorImage({
+        source: new Vector({
+          format: new GeoJSON({ dataProjection: "EPSG:4326" }),
+          url: url,
+        }),
+        style: strokStyle,
+        visible: true,
+      }),
+    ],
+    view: new View({
+      rotation: 0.18,
+      projection: "EPSG:4326",
+      center: [32.56635, 15.56647],
+      zoom: 17,
+    }),
+  });
+
+  useEffect(() => {
+    map.setTarget("map");
+    map.on("click", (element) => {
+      map.forEachFeatureAtPixel(element.pixel, handelClick);
     });
-  }, []);
+  });
+
+  const handelClick = (element) => {
+    console.log(element);
+  };
 
   const style = {
     width: "100%",
