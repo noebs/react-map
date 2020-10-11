@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./App/style/App.css";
 import App from "./App";
-
+import Store from "./App/Store/Store";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   //! uncomment later
   // <React.StrictMode>
-  <App />,
+  <Store>
+    <App />
+  </Store>,
   // </React.StrictMode>
   document.getElementById("root")
 );

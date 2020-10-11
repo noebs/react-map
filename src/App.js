@@ -6,6 +6,7 @@ import { XYZ as XYZSource, Vector } from "ol/source";
 import url from "./assets/map.geojson";
 import { Stroke, Style, Text } from "ol/style";
 import Cards from "./App/Components/Cards/Cards";
+import Modal from "./App/Components/Modal/Modal";
 const TestMap = () => {
   console.log("%c%s", "color: #00a3cc", "App re-render");
 
@@ -74,17 +75,14 @@ const TestMap = () => {
   //   console.log(element);
   // };
 
+  const filterdFeatures = features.filter((e) => e.values_.text);
+
   return (
-    <>
+    <div>
       <div id="map" className="w-screen h-screen relative" />
-      {/* <div className=" bg-white w-1/2 shadow-md rounded-md h-40 absolute m-auto bottom-0 left-0 right-0 mb-6 flex gap-6">
-        {handleCards()}
-      </div> */}
-      <Cards
-        features={features.filter((e) => e.values_.text)}
-        map={map.getView()}
-      />
-    </>
+      <Modal features={filterdFeatures} />
+      <Cards features={filterdFeatures} map={map.getView()} />
+    </div>
   );
 };
 
